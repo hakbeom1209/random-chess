@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온라인 체스</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=chess960">
+</head>
+
+<body>
+
+  <div id="screenMain" class="screen active">
+    <div class="logo">♟ Chess</div>
+    <div class="sub">Online · Two Player</div>
+
+    <div class="main-card">
+      <h2>게임 시작</h2>
+
+      <div class="option-box">
+        <div class="option-title">체스 종류 선택</div>
+        <select id="variantSelect" class="variant-select">
+          <option value="" selected disabled>체스 종류를 선택하세요</option>
+          <option value="normal">일반 체스</option>
+          <option value="chess960">체스960</option>
+          <option value="random">랜덤체스</option>
+        </select>
+      </div>
+
+      <button class="btn primary" onclick="createRoom()">방 생성하기</button>
+
+      <div class="divider"></div>
+
+      <div style="font-size:12px;color:var(--muted);margin-bottom:2px;">방 코드로 참가</div>
+      <div class="input-group">
+        <input type="text" id="joinInput" maxlength="6" placeholder="XXXXXX" />
+        <button class="btn primary" onclick="joinRoom()">참가</button>
+      </div>
+
+      <div class="error-msg" id="mainError"></div>
+    </div>
+  </div>
+
+  <div id="screenWait" class="screen">
+    <div class="logo">♟ Chess</div>
+    <div class="sub">Online · Two Player</div>
+
+    <div class="wait-card">
+      <div style="font-size:12px;color:var(--muted);">방 코드</div>
+      <div class="room-id-display" id="waitRoomId">——</div>
+      <button class="copy-btn" onclick="copyRoomId()">코드 복사</button>
+      <div class="variant-wait" id="waitVariantName"></div>
+
+      <div class="spinner"></div>
+      <div class="wait-desc">
+        상대방이 접속하기를 기다리는 중...<br>
+        방 코드를 상대에게 알려주세요.
+      </div>
+
+      <button class="btn danger" onclick="leaveRoom()">취소</button>
+    </div>
+  </div>
+
+  <div id="screenGame" class="screen">
+    <div class="game-wrap">
+
+      <div class="board-section">
+        <div class="board-outer">
+          <div class="rank-labels" id="rankLabels"></div>
+          <div id="board"></div>
+        </div>
+        <div class="file-labels" id="fileLabels"></div>
+      </div>
+
+      <div class="panel">
+        <div class="card status-card">
+          <div class="card-label">차례</div>
+          <div class="turn-row" id="turnDisplay">
+            <span class="dot white"></span>
+            <span>백 차례</span>
+          </div>
+          <div class="my-color-badge" id="myColorBadge"></div>
+        </div>
+
+        <div class="card" id="gameMessage">
+          <div id="gameMessageText"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">잡은 말</div>
+          <div class="captured-row" id="capturedWhite"></div>
+          <div class="captured-sub">백이 잡음</div>
+          <div style="height:6px;"></div>
+          <div class="captured-row" id="capturedBlack"></div>
+          <div class="captured-sub">흑이 잡음</div>
+        </div>
+
+        <div class="card moves-card">
+          <div class="card-label">기보</div>
+          <div id="moveList"></div>
+        </div>
+
+        <div class="btn-row">
+          <button onclick="leaveRoom()">← 나가기</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="promoOverlay">
+    <div>
+      <div class="promo-label-txt">프로모션 선택</div>
+      <div class="promo-box">
+        <div class="promo-pieces" id="promoBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js?v=chess960"></script>
+</body>
+
+</html>
