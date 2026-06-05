@@ -1,4 +1,7 @@
-const WS_URL = `ws://${location.hostname || 'localhost'}:8080`;
+const WS_URL =
+  location.protocol === 'https:'
+    ? `wss://${location.host}`
+    : `ws://${location.host}`;
 
 const GLYPHS = {
   wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
